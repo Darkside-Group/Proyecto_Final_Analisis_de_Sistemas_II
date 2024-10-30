@@ -1,0 +1,19 @@
+﻿@model Producto
+
+<h1>Eliminar Producto</h1>
+
+<h3>¿Estás seguro que deseas eliminar este producto?</h3>
+
+<div>
+    <h4>@Model.Nombre</h4>
+    <p>Información: @Model.Informacion</p>
+    <p>Precio: @Model.Precio</p>
+    <p>Fecha de Ingreso: @Model.FechaIngreso.ToShortDateString()</p>
+    <p>Fecha de Expiración: @Model.FechaExpiracion.ToShortDateString()</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

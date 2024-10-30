@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MascotasViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mascota in Model)
+        {
+            <tr>
+                <td>@mascota.Id_Mascota</td>
+                <td>@mascota.NombreMascota</td>
+                <td>@mascota.EspecieMascota</td>
+                <td>@mascota.RazaMascota</td>
+                <td>@mascota.EdadMascota</td>
+                <td>@mascota.FechaNacimiento.ToShortDateString()</td>
+                <td>@mascota.Precio.ToString("C")</td> 
+            </tr>
+        }
+    </tbody>
+</table>

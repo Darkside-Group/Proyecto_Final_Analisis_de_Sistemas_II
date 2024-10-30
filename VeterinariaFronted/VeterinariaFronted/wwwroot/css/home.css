@@ -1,0 +1,138 @@
+﻿/* General */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s ease;
+}
+
+    .navbar:hover {
+        background-color: #f8f9fa; /* Cambia el color al pasar el mouse */
+    }
+
+.nav-link {
+    color: #333;
+    font-weight: bold;
+}
+
+    .nav-link:hover {
+        color: #f39c12; /* Color al pasar el mouse por los enlaces */
+    }
+
+/* Carrusel */
+.carousel-item img {
+    height: 600px;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+    .carousel-caption h5 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .carousel-caption p {
+        font-size: 1.2rem;
+    }
+
+/* Sección de Servicios */
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .card:hover {
+        transform: scale(1.05); /* Aumenta ligeramente el tamaño de las tarjetas */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    color: #777;
+}
+
+/* Testimonios */
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.blockquote {
+    background: #fff;
+    border-left: 10px solid #f39c12;
+    padding: 20px;
+    font-size: 1.2rem;
+    font-style: italic;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Pie de página */
+footer {
+    background-color: #333;
+    color: #fff;
+}
+
+    footer p {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    footer a {
+        color: #fff;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+
+        footer a:hover {
+            color: #f39c12; /* Cambia el color de los iconos al pasar el mouse */
+        }
+
+/* Botón de Carrusel */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+/* Transiciones generales */
+a, button {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+    a:hover, button:hover {
+        color: #f39c12;
+        background-color: transparent;
+    }

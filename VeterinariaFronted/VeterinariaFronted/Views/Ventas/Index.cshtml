@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Venta>
+
+<h2>Ventas</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Registrar Venta</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre Producto</th>
+            <th>Información</th>
+            <th>Precio</th>
+            <th>Cantidad Vendida</th>
+            <th>Cantidad Actual</th>
+            <th>Fecha de Venta</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Informacion</td>
+                <td>@item.Precio</td>
+                <td>@item.CantidadVendida</td>
+                <td>@item.CantidadActual</td>
+                <td>@item.FechaVenta.ToString("dd/MM/yyyy")</td>
+              @*   <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,16 @@
+﻿@model Venta
+
+<h2>Eliminar Venta</h2>
+
+<div>
+    <h3>¿Está seguro que desea eliminar esta venta?</h3>
+    <div>
+     
+        <h4>Cantidad Vendida: @Model.CantidadVendida</h4>
+    </div>
+    <form asp-action="DeleteConfirmed" method="post">
+
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

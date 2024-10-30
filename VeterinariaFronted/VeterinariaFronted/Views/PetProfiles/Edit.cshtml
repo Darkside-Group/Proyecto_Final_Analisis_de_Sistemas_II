@@ -1,0 +1,74 @@
+﻿@model PetProfile
+
+
+@{
+    ViewData["Title"] = "Editar Mascota";
+}
+
+<h1>Editar Mascota</h1>
+
+<form asp-action="Edit">
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Edad" class="control-label"></label>
+        <input asp-for="Edad" class="form-control" />
+        <span asp-validation-for="Edad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Raza" class="control-label"></label>
+        <input asp-for="Raza" class="form-control" />
+        <span asp-validation-for="Raza" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Peso" class="control-label"></label>
+        <input asp-for="Peso" class="form-control" />
+        <span asp-validation-for="Peso" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Observaciones" class="control-label"></label>
+        <textarea asp-for="Observaciones" class="form-control"></textarea>
+        <span asp-validation-for="Observaciones" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Medicamento" class="control-label"></label>
+        <input asp-for="Medicamento" class="form-control" />
+        <span asp-validation-for="Medicamento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProximaCita" class="control-label"></label>
+        <input asp-for="ProximaCita" type="date" class="form-control" />
+        <span asp-validation-for="ProximaCita" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GastoDelDia" class="control-label"></label>
+        <input asp-for="GastoDelDia" class="form-control" />
+        <span asp-validation-for="GastoDelDia" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NombreDueno" class="control-label"></label>
+        <input asp-for="NombreDueno" class="form-control" />
+        <span asp-validation-for="NombreDueno" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefono" class="control-label"></label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Dpi" class="control-label"></label>
+        <input asp-for="Dpi" class="form-control" />
+        <span asp-validation-for="Dpi" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EdadDueno" class="control-label"></label>
+        <input asp-for="EdadDueno" class="form-control" />
+        <span asp-validation-for="EdadDueno" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

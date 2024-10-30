@@ -1,0 +1,25 @@
+﻿@model PetProfile
+
+
+@{
+    ViewData["Title"] = "Eliminar Mascota";
+}
+
+<h1>Eliminar Mascota</h1>
+
+<h3>¿Estás seguro de que deseas eliminar esta mascota?</h3>
+
+<div>
+    <h4>Nombre: @Model.Nombre</h4>
+    <p>Edad: @Model.Edad</p>
+    <p>Raza: @Model.Raza</p>
+    <p>Peso: @Model.Peso</p>
+    <p>Nombre del Dueño: @Model.NombreDueno</p>
+    <p>Teléfono: @Model.Telefono</p>
+</div>
+
+<form asp-action="DeleteConfirmed">
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

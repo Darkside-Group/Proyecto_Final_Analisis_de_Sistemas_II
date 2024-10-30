@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Producto>
+
+<div class="container mt-4">
+    <h1 class="text-center">Lista de Productos</h1>
+
+    <div class="d-flex justify-content-between my-3">
+        <a asp-action="Create" class="btn btn-success">Crear Producto</a>
+        <a asp-controller="Ventas" asp-action="Index" class="btn btn-info">Ver Ventas</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Información</th>
+                    <th>Precio</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Fecha de Expiración</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var producto in Model)
+                {
+                    <tr>
+                        <td>@producto.Id</td>
+                        <td>@producto.Nombre</td>
+                        <td>@producto.Informacion</td>
+                        <td>@producto.Precio.ToString("C")</td>
+                        <td>@producto.FechaIngreso.ToShortDateString()</td>
+                        <td>@producto.FechaExpiracion.ToShortDateString()</td>
+                        <td>@producto.Cantidad</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@producto.Id" class="btn btn-warning btn-sm">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@producto.Id" class="btn btn-danger btn-sm">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
