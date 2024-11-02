@@ -50,25 +50,25 @@ namespace ApiVeterinaria.Controllers
                 return NotFound("Producto no encontrado.");
             }
 
-            // Verificar si hay suficiente cantidad disponible
+
             if (producto.Cantidad < venta.CantidadVendida)
             {
                 return BadRequest("No hay suficiente stock del producto.");
             }
 
-            // Actualizar la cantidad del producto
-            producto.Cantidad -= venta.CantidadVendida; // Restar la cantidad vendida
+   
+            producto.Cantidad -= venta.CantidadVendida; 
 
             // Crear la venta
             var nuevaVenta = new Venta
             {
                 ProductoId = venta.ProductoId,
                 CantidadVendida = venta.CantidadVendida,
-                CantidadActual = producto.Cantidad, // Asignar la cantidad actualizada
+                CantidadActual = producto.Cantidad,
                 FechaVenta = DateTime.Now
             };
 
-            // Agregar la nueva venta al contexto y guardar cambios
+            
             _context.Ventas.Add(nuevaVenta);
             await _context.SaveChangesAsync();
 

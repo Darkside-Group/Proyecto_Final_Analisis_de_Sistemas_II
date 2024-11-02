@@ -2,7 +2,7 @@
 {
     public class InventarioPorMes
     {
-        public int Id { get; set; }  // Clave primaria
+        public int Id { get; set; } 
         public int IdProducto { get; set; }
         public Producto Producto { get; set; }
         public string Mes { get; set; }

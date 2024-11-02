@@ -4,69 +4,93 @@
     ViewData["Title"] = "Agregar Mascota";
 }
 
-<h1>Agregar Mascota</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Inventario</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VeterinariaFronted.styles.css" asp-append-version="true" />
+</head>
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Nombre" class="control-label"></label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Agregar Mascota</h2>
+
+        <form asp-action="Create" class="border p-4 shadow rounded bg-light">
+            <div class="form-group mb-3">
+                <label asp-for="Nombre" class="form-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Edad" class="form-label"></label>
+                <input asp-for="Edad" class="form-control" />
+                <span asp-validation-for="Edad" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Raza" class="form-label"></label>
+                <input asp-for="Raza" class="form-control" />
+                <span asp-validation-for="Raza" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Peso" class="form-label"></label>
+                <input asp-for="Peso" class="form-control" />
+                <span asp-validation-for="Peso" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Observaciones" class="form-label"></label>
+                <textarea asp-for="Observaciones" class="form-control"></textarea>
+                <span asp-validation-for="Observaciones" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Medicamento" class="form-label"></label>
+                <input asp-for="Medicamento" class="form-control" />
+                <span asp-validation-for="Medicamento" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProximaCita" class="form-label"></label>
+                <input asp-for="ProximaCita" type="date" class="form-control" />
+                <span asp-validation-for="ProximaCita" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="GastoDelDia" class="form-label"></label>
+                <input asp-for="GastoDelDia" class="form-control" />
+                <span asp-validation-for="GastoDelDia" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="NombreDueno" class="form-label"></label>
+                <input asp-for="NombreDueno" class="form-control" />
+                <span asp-validation-for="NombreDueno" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Telefono" class="form-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Dpi" class="form-label"></label>
+                <input asp-for="Dpi" class="form-control" />
+                <span asp-validation-for="Dpi" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="EdadDueno" class="form-label"></label>
+                <input asp-for="EdadDueno" class="form-control" />
+                <span asp-validation-for="EdadDueno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Edad" class="control-label"></label>
-        <input asp-for="Edad" class="form-control" />
-        <span asp-validation-for="Edad" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Raza" class="control-label"></label>
-        <input asp-for="Raza" class="form-control" />
-        <span asp-validation-for="Raza" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Peso" class="control-label"></label>
-        <input asp-for="Peso" class="form-control" />
-        <span asp-validation-for="Peso" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Observaciones" class="control-label"></label>
-        <textarea asp-for="Observaciones" class="form-control"></textarea>
-        <span asp-validation-for="Observaciones" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Medicamento" class="control-label"></label>
-        <input asp-for="Medicamento" class="form-control" />
-        <span asp-validation-for="Medicamento" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ProximaCita" class="control-label"></label>
-        <input asp-for="ProximaCita" type="date" class="form-control" />
-        <span asp-validation-for="ProximaCita" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="GastoDelDia" class="control-label"></label>
-        <input asp-for="GastoDelDia" class="form-control" />
-        <span asp-validation-for="GastoDelDia" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="NombreDueno" class="control-label"></label>
-        <input asp-for="NombreDueno" class="form-control" />
-        <span asp-validation-for="NombreDueno" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Telefono" class="control-label"></label>
-        <input asp-for="Telefono" class="form-control" />
-        <span asp-validation-for="Telefono" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Dpi" class="control-label"></label>
-        <input asp-for="Dpi" class="form-control" />
-        <span asp-validation-for="Dpi" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="EdadDueno" class="control-label"></label>
-        <input asp-for="EdadDueno" class="form-control" />
-        <span asp-validation-for="EdadDueno" class="text-danger"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-</form>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

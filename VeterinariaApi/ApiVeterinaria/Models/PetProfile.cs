@@ -4,14 +4,14 @@ namespace ApiVenta.Models
 {
     public class PetProfile
     {
-        public int Id { get; set; } // Clave primaria
+        public int Id { get; set; } 
 
         [Required]
         [StringLength(100)]
         public string Nombre { get; set; }
 
         [Required]
-        [Range(0, 50)] // Ajusta el rango según las edades esperadas
+        [Range(0, 50)] 
         public int Edad { get; set; }
 
         [Required]
@@ -19,7 +19,7 @@ namespace ApiVenta.Models
         public string Raza { get; set; }
 
         [Required]
-        [Range(0, 100)] // Ajusta el rango según los pesos esperados
+        [Range(0, 100)]
         public double Peso { get; set; }
 
         public string Observaciones { get; set; }
@@ -35,7 +35,7 @@ namespace ApiVenta.Models
         public string NombreDueno { get; set; }
 
         [Required]
-        [StringLength(15)] // Ajusta la longitud según el formato del teléfono
+        [StringLength(15)]
         public string Telefono { get; set; }
 
         [Required]
@@ -43,8 +43,11 @@ namespace ApiVenta.Models
         public string Dpi { get; set; }
 
         [Required]
-        [Range(0, 100)] // Ajusta el rango según las edades esperadas
+        [Range(0, 100)] 
         public int EdadDueno { get; set; }
+
+       
+        public List<PetObservation> Observations { get; set; } = new List<PetObservation>();
 
     }
 }

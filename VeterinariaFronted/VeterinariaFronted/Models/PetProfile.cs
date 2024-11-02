@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using VentaFronted.Models;
 
 namespace VeterinariaFronted.Models
 {
@@ -45,6 +46,10 @@ namespace VeterinariaFronted.Models
         [Required]
         [Range(0, 100)] // Ajusta el rango según las edades esperadas
         public int EdadDueno { get; set; }
+
+        // Colección de observaciones relacionadas
+        public List<PetObservation> Observations { get; set; } = new List<PetObservation>();
+        public List<CitaDeMascota> Citas { get; set; } = new List<CitaDeMascota>();
 
     }
 }

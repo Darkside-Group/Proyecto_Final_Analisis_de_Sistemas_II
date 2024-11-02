@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using VentaFronted.Models;
 using VeterinariaFronted.Models;
 
 namespace VentaFronted.Controllers
@@ -93,5 +94,77 @@ namespace VentaFronted.Controllers
             var response = await _httpClient.DeleteAsync($"/api/perfiles-mascotas/eliminar/{id}"); // Cambiado
             return RedirectToAction(nameof(Index));
         }
+
+
+
+        public async Task<IActionResult> InfoMascota(int id)
+        {
+            // Llamada a la API para obtener el perfil de la mascota con observaciones
+            var response = await _httpClient.GetAsync($"/api/perfiles-mascotas/{id}/observaciones");
+            if (!response.IsSuccessStatusCode)
+            {
+                return NotFound(); // Manejar el caso cuando no se encuentra el perfil
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var petProfileWithObservations = JsonConvert.DeserializeObject<PetProfile>(content); // Deserializar la respuesta
+
+            // Llamada a la API para obtener las citas de la mascota
+            var citasResponse = await _httpClient.GetAsync($"/api/perfiles-mascotas/{id}/citas");
+            if (citasResponse.IsSuccessStatusCode)
+            {
+                var citasContent = await citasResponse.Content.ReadAsStringAsync();
+                petProfileWithObservations.Citas = JsonConvert.DeserializeObject<List<CitaDeMascota>>(citasContent); // Asignar las citas al modelo
+            }
+
+            return View(petProfileWithObservations); // Enviar la vista con el modelo
+        }
+
+
+        // POST: /PetProfiles/AgregarObservacion
+        // POST: /PetProfiles/AgregarObservacion
+        // POST: /PetProfiles/AgregarObservacion
+        [HttpPost]
+        public async Task<IActionResult> AgregarObservacion(CombinadosInformacionMascota combinados)
+        {
+            if (ModelState.IsValid)
+            {
+                // Asignar el PetProfileId a IdPerfilMascota
+                combinados.CitaDeMascota.IdPerfilMascota = combinados.PetObservation.PetProfileId;
+
+                // Serializar y enviar el objeto combinado (con observación y cita)
+                var jsonRequest = JsonConvert.SerializeObject(new
+                {
+                    PetProfileId = combinados.PetObservation.PetProfileId,
+                    ObservationDate = combinados.PetObservation.ObservationDate,
+                    ObservationText = combinados.PetObservation.ObservationText,
+                    AppointmentDate = combinados.CitaDeMascota.FechaCita,
+                    AppointmentDescription = combinados.CitaDeMascota.Descripcion
+                });
+
+                var contentRequest = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync("/api/perfiles-mascotas/CrearObservacionesYProximaCita", contentRequest);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("InfoMascota", new { id = combinados.PetObservation.PetProfileId }); // Redirigir a la vista de información de la mascota
+                }
+                else
+                {
+                    // Manejar el error, tal vez agregar un mensaje a ModelState
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, $"Error al agregar la observación o la cita: {errorMessage}");
+                }
+            }
+
+            // Si hay errores, volver a la vista con el modelo adecuado
+            return View("InfoMascota", combinados); // Pasar el modelo completo para que la vista tenga toda la información
+        }
+
+
+
+
+
     }
 }

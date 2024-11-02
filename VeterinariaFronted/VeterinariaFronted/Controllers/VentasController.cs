@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using VeterinariaFronted.Models;
+using OfficeOpenXml;
 
 namespace VeterinariaFronted.Controllers
 {
@@ -19,7 +20,6 @@ namespace VeterinariaFronted.Controllers
         public async Task<IActionResult> Index()
         {
             var response = await _httpClient.GetAsync("/api/ventas/listar");
-
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -29,6 +29,8 @@ namespace VeterinariaFronted.Controllers
 
             return View(new List<Venta>());
         }
+
+
 
         // GET: Ventas/Create
         public async Task<IActionResult> Create()
@@ -46,6 +48,59 @@ namespace VeterinariaFronted.Controllers
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> ExportToExcel()
+        {
+            // Configurar el contexto de licencia para EPPlus
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Cambia a LicenseContext.Commercial si estás utilizando una licencia comercial
+
+            var response = await _httpClient.GetAsync("/api/ventas/listar");
+            if (!response.IsSuccessStatusCode)
+            {
+                return BadRequest("No se pudo obtener datos de ventas.");
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            var ventas = JsonConvert.DeserializeObject<IEnumerable<Venta>>(content);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Ventas");
+
+                // Establecer encabezados
+                worksheet.Cells[1, 1].Value = "Nombre Producto";
+                worksheet.Cells[1, 2].Value = "Información";
+                worksheet.Cells[1, 3].Value = "Precio";
+                worksheet.Cells[1, 4].Value = "Cantidad Vendida";
+                worksheet.Cells[1, 5].Value = "Cantidad Actual";
+                worksheet.Cells[1, 6].Value = "Fecha de Venta";
+
+                // Agregar los datos
+                var row = 2;
+                foreach (var item in ventas)
+                {
+                    worksheet.Cells[row, 1].Value = item.Nombre;
+                    worksheet.Cells[row, 2].Value = item.Informacion;
+                    worksheet.Cells[row, 3].Value = item.Precio;
+                    worksheet.Cells[row, 4].Value = item.CantidadVendida;
+                    worksheet.Cells[row, 5].Value = item.CantidadActual;
+                    worksheet.Cells[row, 6].Value = item.FechaVenta.ToString("dd/MM/yyyy");
+                    row++;
+                }
+
+                // Ajustar el ancho de las columnas
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Crear un archivo en memoria
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                stream.Position = 0;
+
+                // Devolver el archivo Excel
+                var fileName = "Ventas.xlsx";
+                return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
         }
 
 

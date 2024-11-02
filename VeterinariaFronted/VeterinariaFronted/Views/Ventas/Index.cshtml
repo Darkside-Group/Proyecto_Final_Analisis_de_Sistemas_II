@@ -1,37 +1,57 @@
 ﻿@model IEnumerable<Venta>
 
-<h2>Ventas</h2>
+@{
+    ViewData["Title"] = "Ventas";
+}
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Registrar Venta</a>
-</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Inventario</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/VeterinariaFronted.styles.css" asp-append-version="true" />
+</head>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre Producto</th>
-            <th>Información</th>
-            <th>Precio</th>
-            <th>Cantidad Vendida</th>
-            <th>Cantidad Actual</th>
-            <th>Fecha de Venta</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Nombre</td>
-                <td>@item.Informacion</td>
-                <td>@item.Precio</td>
-                <td>@item.CantidadVendida</td>
-                <td>@item.CantidadActual</td>
-                <td>@item.FechaVenta.ToString("dd/MM/yyyy")</td>
-              @*   <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
-                </td> *@
-            </tr>
-        }
-    </tbody>
-</table>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center">Ventas</h2>
+
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Registrar Venta</a>
+            <a asp-action="ExportToExcel" class="btn btn-success">Exportar a Excel</a> <!-- Botón para exportar -->
+        </p>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre Producto</th>
+                    <th>Información</th>
+                    <th>Precio</th>
+                    <th>Cantidad Vendida</th>
+                    <th>Cantidad Actual</th>
+                    <th>Fecha de Venta</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Informacion</td>
+                        <td>@item.Precio.ToString("C")</td>
+                        <td>@item.CantidadVendida</td>
+                        <td>@item.CantidadActual</td>
+                        <td>@item.FechaVenta.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
