@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Inventario</title>
-  
 </head>
 
 <body>
@@ -32,20 +33,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="PetProfiles" asp-action="Index">Registro veterinaria</a>
                         </li>
+
+                        
+
+                        <!-- Verificación de UserId antes de mostrar la opción de Crear Usuario -->
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserId") == "1")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Register">Crear Usuario</a>
+                            </li>
+                        }
+
+                        <!-- Botón de Cerrar sesión -->
+                        <form asp-controller="Home" asp-action="Logout" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm" style="position: absolute; bottom: 10px; right: 10px;">Cerrar sesión</button>
+                        </form>
+
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-
-   
-
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-
-  
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

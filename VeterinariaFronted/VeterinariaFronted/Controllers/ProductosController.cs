@@ -2,6 +2,10 @@
 using Newtonsoft.Json;
 using System.Text;
 using VeterinariaFronted.Models;
+using Microsoft.AspNetCore.Http;
+using NuGet.Protocol.Plugins;
+using VentaFronted.Models;
+
 
 namespace VeterinariaFronted.Controllers
 {
@@ -144,7 +148,6 @@ namespace VeterinariaFronted.Controllers
             return View(); 
         }
 
-        // POST: Auth/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(string Username, string Password)
@@ -165,8 +168,29 @@ namespace VeterinariaFronted.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                // Redirigir a la página principal o a la página de productos después de un inicio de sesión exitoso
-                return RedirectToAction("Index", "Home");
+                // Leer el contenido de la respuesta deserializándolo en el modelo LoginResponse
+                var content = await response.Content.ReadFromJsonAsync<LoginResponse>();
+
+                // Extraer el UserId desde el objeto devuelto por la API
+                var userId = content?.UserId;
+
+                if (userId != null)
+                {
+                    // Convertir userId a string explícitamente
+                    string userIdString = Convert.ToString(userId);
+
+                    // Guardar el UserId en la sesión
+                    HttpContext.Session.SetString("UserId", userIdString);
+
+                    // Redirigir a la página principal o a la página de productos después de un inicio de sesión exitoso
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    // Mostrar un error si no se puede extraer el UserId
+                    ModelState.AddModelError("", "No se pudo recuperar el ID de usuario.");
+                    return View("loginD");
+                }
             }
             else
             {
@@ -175,6 +199,58 @@ namespace VeterinariaFronted.Controllers
                 return View("loginD");
             }
         }
+
+
+
+
+
+        // GET: Auth/Register
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: Auth/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterData(string FirstName, string LastName, string Username, string Password, int RoleId)
+        {
+            // Validar la entrada
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
+                string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || RoleId == 0)
+            {
+                ModelState.AddModelError("", "Todos los campos son obligatorios.");
+                return View();
+            }
+
+            // Crear el objeto para la solicitud
+            var newUser = new
+            {
+                firstName = FirstName,
+                lastName = LastName,
+                username = Username,
+                password = Password,
+                roleId = RoleId
+            };
+
+            // Enviar la solicitud POST al API
+            var response = await _httpClient.PostAsJsonAsync("api/login/crear", newUser);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Redirigir al Home/Index si el usuario se creó correctamente
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                // Mostrar un mensaje de error si la creación falló
+                ModelState.AddModelError("", "Ocurrió un error al crear el usuario.");
+                return View();
+            }
+        }
+
+
 
     }
 
