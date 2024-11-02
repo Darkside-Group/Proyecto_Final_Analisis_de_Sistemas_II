@@ -15,6 +15,9 @@ namespace ApiVeterinaria.Models
 
         public DbSet<CitaDeMascota> CitasDeMascotas { get; set; }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Producto>()
@@ -28,7 +31,6 @@ namespace ApiVeterinaria.Models
             modelBuilder.Entity<VentasDiarias>()
                 .Property(v => v.PrecioTotal)
                 .HasColumnType("decimal(18,2)");
-
         }
     }
 }

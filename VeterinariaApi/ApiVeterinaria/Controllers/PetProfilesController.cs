@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiVeterinaria.Controllers // Cambiar a ApiVeterinaria para seguir el ejemplo
 {
-    [Route("api/perfiles-mascotas")] // Ajustado según tu formato
+    [Route("api/perfiles-mascotas")] 
     [ApiController]
     public class PetProfilesController : ControllerBase
     {

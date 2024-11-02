@@ -135,6 +135,47 @@ namespace VeterinariaFronted.Controllers
 
             return NotFound();
         }
+
+
+        // GET: Auth/Login
+        [HttpGet]
+        public IActionResult LoginD()
+        {
+            return View(); 
+        }
+
+        // POST: Auth/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string Username, string Password)
+        {
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            {
+                ModelState.AddModelError("", "El nombre de usuario y la contraseña son requeridos.");
+                return View("loginD");
+            }
+
+            var loginRequest = new
+            {
+                username = Username,
+                password = Password
+            };
+
+            var response = await _httpClient.PostAsJsonAsync("api/login/login", loginRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Redirigir a la página principal o a la página de productos después de un inicio de sesión exitoso
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                // Si el inicio de sesión falla, mostrar el error
+                ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                return View("loginD");
+            }
+        }
+
     }
 
 

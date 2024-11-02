@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Veterinaria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true">
+    <style>
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+        }
+
+        .card {
+            border-radius: 1rem;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .card-header {
+            background-color: #6a11cb;
+            color: white;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: #2575fc;
+            box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+
+            .btn-primary:hover {
+                background-color: #1a5bb8;
+                border-color: #1a5bb8;
+            }
+
+        .footer-text {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-md-4">
+                <div class="card shadow-lg">
+                    <div class="card-header text-center">
+                        <h3 class="mb-0">Iniciar Sesión</h3>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Login" method="post">
+                            <div class="form-group mb-3">
+                                <label for="Username" class="form-label">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="Username" name="Username" placeholder="Ingresa tu nombre de usuario" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="Password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="Password" name="Password" placeholder="Ingresa tu contraseña" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small class="footer-text">¿Olvidaste tu contraseña? <a href="#" class="text-primary">Recuperar</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

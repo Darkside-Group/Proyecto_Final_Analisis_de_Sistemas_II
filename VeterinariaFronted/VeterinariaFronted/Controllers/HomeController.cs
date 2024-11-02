@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using VentaFronted.Models;
 using VeterinariaFronted.Models;
 
 namespace VeterinariaFronted.Controllers
@@ -14,6 +15,11 @@ namespace VeterinariaFronted.Controllers
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7111/api");
         }
+
+
+
+
+
 
         // Método para obtener la lista de productos
         public async Task<IActionResult> Productos()
@@ -54,6 +60,13 @@ namespace VeterinariaFronted.Controllers
             return View(new List<InventarioPorMes>());
         }
 
+        // GET: Productos/Login
+        public IActionResult loginD()
+        {
+            return View();
+        }
+
+       
 
         public async Task <IActionResult> Index()
         {
