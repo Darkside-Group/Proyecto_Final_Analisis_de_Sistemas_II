@@ -18,13 +18,23 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Habilitar las sesiones
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración de la sesión
+    options.Cookie.HttpOnly = true; // Asegura que las cookies solo se envíen a través de HTTP(S)
+    options.Cookie.IsEssential = true; // Necesario para que la cookie esté disponible incluso sin consentimiento
+});
+
+// Registrar IHttpContextAccessor
+builder.Services.AddHttpContextAccessor(); // Añadir esta línea
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -35,6 +45,9 @@ app.UseRouting();
 
 // Habilitar CORS
 app.UseCors("AllowAllOrigins");
+
+// Habilitar el uso de sesiones
+app.UseSession();
 
 app.UseAuthorization();
 

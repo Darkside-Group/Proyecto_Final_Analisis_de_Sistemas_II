@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http; // Asegúrate de incluir esto
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 using VentaFronted.Models;
 using VeterinariaFronted.Models;
 
@@ -9,17 +13,14 @@ namespace VeterinariaFronted.Controllers
     public class HomeController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly IHttpContextAccessor _httpContextAccessor; // Añadir IHttpContextAccessor
 
-        public HomeController(IHttpClientFactory httpClientFactory)
+        public HomeController(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor) // Inyectar IHttpContextAccessor
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7111/api");
+            _httpContextAccessor = httpContextAccessor; // Asignar a la variable
         }
-
-
-
-
-
 
         // Método para obtener la lista de productos
         public async Task<IActionResult> Productos()
@@ -66,11 +67,22 @@ namespace VeterinariaFronted.Controllers
             return View();
         }
 
-       
-
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
+       
+            var userId = _httpContextAccessor.HttpContext.Session.GetString("UserId");
+
+            // Lógica adicional si es necesario
+
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            // Limpiar la sesión
+            HttpContext.Session.Clear();
+            return RedirectToAction("loginD", "Productos"); // Redirigir a la página de inicio de sesión
+        }
+
     }
 }

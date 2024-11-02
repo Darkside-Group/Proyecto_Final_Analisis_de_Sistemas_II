@@ -2,6 +2,7 @@
 using ApiVeterinaria.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 namespace ApiVeterinaria.Controllers
 {
@@ -15,6 +16,7 @@ namespace ApiVeterinaria.Controllers
         {
             _context = context;
         }
+
 
         [HttpPost("crear")]
         public async Task<ActionResult<User>> CreateUser([FromBody] User user)
@@ -33,14 +35,19 @@ namespace ApiVeterinaria.Controllers
                 return BadRequest("El rol no existe.");
             }
 
+            // Hashear la contraseña usando BCrypt
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            // Reemplazar la contraseña del usuario por la contraseña hasheada
+            user.Password = hashedPassword;
+
             // Agregar el nuevo usuario a la base de datos
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             // Retornar el usuario creado
-            return CreatedAtAction(nameof(CreateUser), user);
+            return CreatedAtAction(nameof(CreateUser), new { id = user.Id }, user);
         }
-
 
         // POST: api/auth/login
         [HttpPost("login")]
@@ -52,7 +59,7 @@ namespace ApiVeterinaria.Controllers
                 return BadRequest("El nombre de usuario y la contraseña son requeridos.");
             }
 
-            // Buscar el usuario por nombre de usuario
+            // Buscar el usuario por nombre de usuario y contraseña
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == loginRequest.Username && u.Password == loginRequest.Password);
 
@@ -65,7 +72,14 @@ namespace ApiVeterinaria.Controllers
             return Ok(new
             {
                 Message = "Usuario recuperado con éxito.",
-                User = user
+                UserId = user.Id, // Aquí incluimos el ID del usuario
+                User = new
+                {
+                    user.FirstName,
+                    user.LastName,
+                    user.Username,
+                    user.RoleId
+                }
             });
         }
 
